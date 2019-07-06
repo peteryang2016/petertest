@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+<div id="root">123</div>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+<!-- Don't use this in production: -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+    function Mailbox(props){
+        let unreadMessages = props.unreadMessages
+        return(
+            <div>
+                {
+                    unreadMessages.length>0?<h2>{unreadMessages}</h2>:''
+                }
+            </div>
+        )
+    }
+
+    const messages = ["a","b","c"]
+    ReactDOM.render(
+        <Mailbox unreadMessages={messages} />,
+        document.getElementById("root")
+    )
+</script>
+</body>
+</html>

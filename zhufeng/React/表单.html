@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="root">123</div>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+<!-- Don't use this in production: -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+    class NameForm extends React.Component{
+        constructor(props){
+            super(props);
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.state = {value:'',flag:true}
+        }
+        handleChange(event){
+
+            this.setState({value:event.target.value.toUpperCase()})
+
+        }
+        handleSubmit(event){
+            let val = this.state.value;
+            if(val.length>0){
+                alert('姓名为：'+val);
+                return false
+            }
+            alert('提交的姓名不得为空')
+            event.preventDefault();
+        }
+
+        render(){
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        名字
+                        <input type="text" value={this.state.value} name="name" onChange={this.handleChange}/>
+                    </label>
+                    <input type="submit"/>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(
+        <NameForm />,
+        document.getElementById("root")
+    )
+</script>
+</body>
+</html>

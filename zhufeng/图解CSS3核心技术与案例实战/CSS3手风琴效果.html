@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .accordionMenu{
+            background: #fff;
+            color: #424242;
+            font: 12px Arial,Verdana,sans-serif;
+            margin:0 auto;
+            padding:10px;
+            width:500px;
+        }
+        .accordionMenu h2{
+            margin: 5px 0;
+            padding:0;
+            position: relative;
+        }
+        .accordionMenu h2:before{/*制作向下三角效果*/
+            border:6px solid #fff;
+            border-color:#fff transparent transparent;
+            content:"";
+            height: 0;
+            position: absolute;
+            right:10px;
+            top:10px;
+            width:0;
+        }
+        .accordionMenu h2 a{/*手风琴标题栏效果*/
+            background: #8f8f8f;
+            border-radius:5px;
+            color:#424242;
+            display: block;
+            font-size: 13px;
+            margin:0;
+            padding:10px 10px;
+            text-shadow:2px 2px 2px #aeaeae;
+            text-decoration: none;
+        }
+        .accordionMenu :target h2 a{/*目标标题的效果*/
+            background:#2288dd;
+            color:#fff;
+        }
+        .accordionMenu p{/*标题栏对应的内容*/
+            margin:0;
+            height: 0;/*默认栏目内容高度为0，达到隐藏效果*/
+            overflow: hidden;
+            padding:0 10px;
+            transition:height 0.5s ease-in
+        }
+        .accordionMenu :target p{/*展开对应目标内容*/
+            height: 100px;/*显示对应目标栏内容*/
+            overflow: auto;
+        }
+        .accordionMenu :target h2:before{/*展开时标题三角效果*/
+            border:6px solid #fff;
+            border-color:transparent transparent #fff ;
+        }
+        .test :target {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="test">
+        <div class="test" id="one">one</div>
+        <div class="test" id="two">two</div>
+        <div class="test" id="three">three</div>
+    </div>
+    <div class="accordionMenu">
+        <div class="menuSection" id="brand">
+            <h2><a href="#brand">Brank</a></h2>
+            <p>新华社北京6月19日电在对朝鲜民主主义人民共和国进行国事访问前夕，中共中央总书记、国家主席习近平在朝鲜《劳动新闻》等主要媒体发表题为《传承中朝友谊，续写时代新篇章》的署名文章</p>
+        </div>
+
+        <div class="menuSection" id="promotion">
+            <h2><a href="#promotion">promotion</a></h2>
+            <p>今年是中朝建交70周年。在这个历史性时刻，应朝鲜劳动党委员长、国务委员会委员长金正恩同志邀请，我怀着“传承友谊、续写新篇”的美好愿望，即将对朝鲜民主主义人民共和国进行国事访问。</p>
+        </div>
+
+        <div class="menuSection" id="event">
+            <h2><a href="#event">event</a></h2>
+            <p>回想当年，两党两国老一辈领导人怀着共同的理想信念和深厚的革命友谊，携手缔造了中朝传统友谊，为我们留下了共同的宝贵财富。中朝几代领导人一直保持着密切交往，就传承中朝传统友谊、造福两国人民深入沟通、真诚合作，书写了国际关系史上的佳话。</p>
+        </div>
+
+    </div>
+</body>
+</html>

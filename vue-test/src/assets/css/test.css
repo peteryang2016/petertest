@@ -1,0 +1,5 @@
+.importTest{
+  font-size: 20px; /*no*/
+  border:1px solid blue; /*no*/
+  color: red;
+}

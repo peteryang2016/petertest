@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="box">
+    <div class="content">123</div>
+</div>
+<input type="tel" id="inputele">
+<div id="test">this</div>
+<button id="button">点击</button>
+    <div id="tab" class="tab">
+        <ul>
+            <li class="active">读书</li>
+            <li>电影</li>
+            <li>音乐</li>
+        </ul>
+        <div class="active">热爱读书</div>
+        <div>最新电影</div>
+        <div>精彩音乐</div>
+    </div>
+    <script>
+        function Foo(){
+            getName = function(){//Foo的私有变量
+                console.log(1)
+            }
+            return this;
+        }
+        Foo.getName = function(){//加入到Foo的堆内存了，不是加入Foo函数体内。
+            console.log(2)
+        }
+        Foo.prototype.getName = function(){
+            console.log(3)
+        }
+        var getName = function () {
+                console.log(4)
+        }
+        function getName(){
+            console.log(5)
+        }
+        Foo.getName();//2  把Foo当作对象
+        getName();//4  把Foo当作函数执行，执行全局的getName;console.log(4)的函数体把console.log（5）替换，因为函数声明加定义先执行，在执行变量提升，同名情况下回覆盖。
+        console.log(111);
+        Foo().getName()//1  先把Foo当作普通函数执行，执行返回的结果this(window)在调取window下的getName执行；getName是全局的
+        getName()//1 执行的依然是全局下的getName
+
+        //以下没听懂 52课件 26分钟
+        new Foo.getName();//2 new 这个整体(Foo.getName())     new Foo和new Foo()在后面没有东西的情况下是没有区别的，如果有东西那是wanquan不一样的。
+        new Foo().getName();//3
+        new new Foo().getName()//?3
+
+
+
+        function fn(x){
+            return function (y) {
+                return x+y
+            }
+            
+        }
+
+
+        document.getElementById("test").onclick=function(){
+            console.log(this);//this指向我点击的元素
+            fn();
+        }
+        function fn(){
+            console.log(this)//fn的this为什么指向window
+        }
+
+
+    </script>
+    <style>
+        #box{
+            width: 500px;
+            height: 500px;
+            background: red;
+            overflow: hidden;
+        }
+        .content{
+            width: 100px;
+            height: 100px;
+            background: green;
+            border:50px solid yellow;
+            padding:50px;
+            margin: 50px;
+        }
+        .clear{ clear: both}
+        ul,li,p,div{margin: 0px;padding:0px; list-style: none}
+        #tab ul{
+            height: 35px;
+        }
+        #tab ul li{
+            width: 100px;
+            text-align: center;
+            float: left;
+        }
+        #tab ul li.active{
+            color:red
+        }
+        #tab div{
+            display: none;
+        }
+        #tab div.active{
+            display: block;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <title>新浪网</title>
+    <meta name="keywords" content="关键字">
+    <meta name="description" content="描述">
+    <link rel="stylesheet/less" href="css/index.less">
+    <script src="js/less.min.js"></script>
+    <script src="js/prefixfree.min.js"></script>
+    <!--rem&other-->
+    <script>
+        (function anonymous(){
+            let computedRem = function computedRem() {
+               let winW = document.documentElement.clientWidth;//获取当前屏幕宽度
+               let desw = 640;//设计稿宽度
+                if(winW>desw){
+                    document.documentElement.style.fontSize = '100px';
+                    return
+                }
+                document.documentElement.style.fontSize = winW/desw*100+'px';
+
+            }
+            computedRem();
+            window.addEventListener('resize',computedRem)
+        })()
+    </script>
+</head>
+<body>
+<main class="mainBox">
+    <header class="headerBox">
+        <h1>
+            <i class="icon-logo"></i>
+            新浪网
+        </h1>
+
+        <a href="javascript:;" class="navMenu icon-menu"></a>
+        <a href="javascript:;" class="person icon-user"></a>
+        <a href="javascript:;" class="weather"></a>
+
+    </header>
+
+    <!--nav-->
+    <nav class="navBox clearfix">
+        <a href="#">新闻</a>
+        <a href="#">财经</a>
+        <a href="#">体育</a>
+        <a href="#">娱乐</a>
+        <a href="#">军事</a>
+        <a href="#">汽车</a>
+        <a href="#">科技</a>
+        <a href="#">视频</a>
+        <a href="#">美图</a>
+        <a href="#">NB</a>
+        <a href="#">博客</a>
+    </nav>
+
+    <!--banner-->
+    <section class="swiper-container bannerBox">
+        <div class="swiper-wrapper">
+            <!--<div class="swiper-slide">
+                <img src="img/1.jpg" alt="">
+                <p>文字</p>
+            </div>-->
+        </div>
+        <div class="swiper-pagination"></div>
+    </section>
+
+    <!--message-->
+    <section class="messageBox">
+        <div class="liveFlag"><!--直播--></div>
+        <section class="swiper-container messageCon">
+            <div class="swiper-wrapper">
+                <!--<div class="swiper-slide"><a href="#">xxxxxxxx</a></div>-->
+            </div>
+        </section>
+    </section>
+    <!--news-->
+    <section class="newsBox">
+        <!--<ul class="newsGroup">
+            <li>
+                <a href="#">
+                    <div><img data-src="img/news.jpg" alt=""></div>
+                    <h3>苏高新、仁恒、恒泰奥体地块规划出炉</h3>
+                    <span>20万<i class="icon-comment"></i></span>
+                </a>
+            </li>
+
+            <li class="latest">
+                <a href="#">
+                    <h3>苏高新、仁恒、恒泰奥体地块规划出炉</h3>
+                    <div class="imgBox">
+                        <p><img data-src="img/news.jpg" alt=""></p>
+                        <p><img data-src="img/news.jpg" alt=""></p>
+                        <p><img data-src="img/news.jpg" alt=""></p>
+                    </div>
+                    <span>20万<i class="icon-comment"></i></span>
+                </a>
+            </li>
+        </ul>-->
+    </section>
+</main>
+<!--import js-->
+<script src="js/zepto.min.js"></script>
+<script src="js/swiper-3.4.2.jquery.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

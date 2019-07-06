@@ -1,0 +1,104 @@
+/*
+Less是css预编译语言，浏览器不能识别Less，写好的Less进行编译成css
+
+编译less有两种情况：
+  1.开发环境下(Development)，经常改动使用less.js
+  2.生产环境下(production)，
+  @import导入的时候最好都是导入less文件，这样可以在编译这个less的时候，把所有的less编译到一个css中，实现css的合并和压缩
+*/
+@import "reset.css";
+@import (reference) "common.less";//只引用common，不编译
+html,body{
+  background: #f4f4f4;
+  overflow-x: hidden;
+}
+.container{
+  width: 1200px;
+  margin:20px auto;
+}
+.headerBox{
+  @H:50px;
+  @F:14px;
+  height: @H;
+  line-height: @H;
+  background: @con-bg;
+  font-size:0px;
+  span{
+    display: inline-block;/*使用inline-block会把标签之间的空格和换行当作元素占位，导致元素之间有间隙,解决方案：让父元素的font-size:0*/
+    width: 90px;
+    text-align: center;
+    height: @H;
+    line-height: @H;
+    font-size: @F;
+    color:@text-black;
+  }
+  a{
+    display: inline-block;
+    padding:0 15px;
+    height: @H;
+    line-height: @H;
+    font-size: @F;
+    color:@text-gray;
+    &:hover{
+      color:@text-active;
+    }
+
+  }
+
+}
+.productBox{
+  margin:20px 0 0 0;
+  overflow: hidden;
+  li{
+    float: left;/*子元素浮动，子元素的高度不能撑开父元素（脱离文档流）。解决：清除子元素浮动对父元素的影响 clear:both*/
+    margin-right: 10px;
+    margin-bottom: 10px;
+    &:nth-child(5n){//5个为一组，一组中的第5个。
+      margin-right: 0px;
+    }
+    background: @con-bg;
+    a{
+      display: block;
+      //box-sizing:border-box;/*css3新盒子模型：我们设置的width是盒子最后的宽度，包括（边框、padding、内容宽度），如果设置了这个属性width:232*/
+      border:3px solid transparent;//鼠标滑过的时候有红色边框，所以默认在这加一个透明的边框
+      padding:0 16px;
+      width: 194px;//padding-left:16 padding-right:16  border:3px,最终会把li撑到232的宽度（194+16+16+3+3）
+      img{
+        display: block;
+        width: 194px;
+        height: 194px;
+      }
+      p{
+        color:@text-gray;
+        font-size: 14px;
+        height: 40px;/*只显示两行  height:40px;line-height:20px;overflow:hidden*/
+        line-height: 20px;
+        overflow: hidden;
+      }
+      span{
+        display: block;
+        line-height: 22px;
+        font-size: 14px;
+        color: @text-black;
+        //span:nth-child(1){} 不是所有span的第一个
+        &:nth-of-type(1){/*span下第一个span*/
+          color:@text-active;
+          font-weight: bold;
+        }
+      }
+      &:hover{
+        border-color: @text-active;
+      }
+      /*transition大部分主流浏览器还不兼容，要加浏览器前缀*/
+        /*-webkit-transition:all .5s linear 0s;
+        -moz-transition:all .5s linear 0s;
+        -o-transition:all .5s linear 0s;
+        -ms-transition:all .5s linear 0s;
+        transition:all .5s linear 0s;//动画，.5s加完红色边框*/
+      .transition(@duration: .2s);//在less中定义了一个方法
+
+
+
+    }
+  }
+}

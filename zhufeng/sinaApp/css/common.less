@@ -1,0 +1,15 @@
+@blue:#129BF0;
+@text:#555;
+@red:#fa1416;
+@gray:#555;
+
+.transition(@property:all,@duration: .3s,@effect:linear,@delay: 0s) {
+  -webkit-transition: @arguments;
+  transition: @arguments;
+}
+
+.text-clip{
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+}

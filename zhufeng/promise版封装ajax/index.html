@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/ajaxPromise.js"></script>
+<script>
+    ajaxPromise.defaults.baseURL = 'https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp';
+    ajaxPromise.get('/list').then((result)=>{
+        console.log(result);
+    })
+    ajaxPromise.get('/list',{
+        params:{
+            id:1000
+        },
+        cache:false
+    }).then((result)=>{
+        console.log(result);
+    })
+    ajaxPromise.post('/list',{
+        name:'peter',
+        age:9
+    },{
+        headers:{
+            'content-type':'x-wwww-form-urlencoded'
+        }
+    }).then((result)=>{
+        console.log(result);
+    })
+</script>
+</body>
+</html>

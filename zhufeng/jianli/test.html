@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .circle-bar { box-sizing: border-box; font-size:200px; width: 100px; height: 100px; position: relative;  background-color: rgba(255,255,255,0); border: 10px solid #333}
+        .circle-bar-left,.circle-bar-right { width: 100px; height: 100px; background-color: #eee;box-sizing: border-box;}
+        /*
+            这里采用clip剪切了圆，实现左右两个半圆，右半圆在后面，因此在更上一层，
+            clip的用法参考：http://www.w3school.com.cn/cssref/pr_pos_clip.asp
+         */
+        .circle-bar-right { clip:rect(0,auto,auto,50px); background: rgba(255,255,255,0); border:10px solid yellow}
+        .circle-bar-left { clip:rect(0,50px,auto,0); background: rgba(255,255,255,0); border:10px solid red}
+
+        /*所有的后代都水平垂直居中，这样就是同心圆了*/
+        .circle-bar * {  position: absolute; top:0px; right:0; bottom:0; left:-10px; margin:auto; }
+        /*自身以及子元素都是圆*/
+        .circle-bar, .circle-bar > * { border-radius: 50%; }
+
+        .mask { width: 80px; height: 80px;  background-color: #fff;text-align: center;line-height: 20px; color:rgba(0,0,0,0.5);left:0px; }
+        .mask :first-child { font-size: 12px; height: 40px; line-height: 20px; display: block; vertical-align: middle}
+        .mask span{
+            left:0px;
+        }
+        .test{
+            width: 200px;
+            height: 200px;
+            position: relative;
+            background: #333;
+            border-radius: 50%;
+        }
+        .test .con{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+        .test .testLeft{
+            background: yellow;
+            clip: rect(0px 100px auto auto);
+        }
+        .test .testRight{
+            background: red;
+            clip:rect(0px auto auto 100px);
+        }
+
+
+
+    </style>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1191335_qpueeefembg.css">
+</head>
+<body>
+<div class="circle-bar">
+    <div class="circle-bar-left"></div>
+    <div class="circle-bar-right"></div>
+    <div class="mask">
+        <span class="percent">离宝宝出生还有219天</span>
+    </div>
+</div>
+<div class="test">
+    <div class="testLeft con"></div>
+    <div class="testRight con"></div>
+</div>
+<div class="iconfont icon-weibiaoti38">123</div>
+<div class="iconfont icon-yuancircle48">123</div>
+<div class="iconfont icon-iconfonticon02">123</div>
+<script src="js/zepto.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

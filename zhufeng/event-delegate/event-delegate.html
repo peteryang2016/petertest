@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../magnifier/css/reset.min.css">
+  <style>
+    .shop{
+      margin:20px auto;
+      width: 200px;
+      height: 50px;
+    }
+    .shop .shopLink{
+      position: relative;
+      display: block;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      background: lightblue;
+      text-align: center;
+
+    }
+    .shop .shopLink .shopList{
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 400px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      background: lightcoral;
+
+    }
+    .shop .shopLink:hover .shopList{
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="shop">
+    <a href="javascript:;" class="shopLink">
+      我的购物车
+      <!--
+        基于css完成显示隐藏，需要保证列表是Ade子元素，这样从a进入到列表不算离开a，这样列表就不会消失了。
+      -->
+      <div class="shopList">
+        购物车列表
+      </div>
+    </a>
+
+  </div>
+</body>
+</html>

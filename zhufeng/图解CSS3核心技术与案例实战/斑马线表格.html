@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            padding:40px 100px
+        }
+        .demo{
+            width: 600px;
+            margin: 40px auto;
+            font-family:'trebuchet MS','Lucida Grande',Arial;
+            font-size: 14px;
+            color:#444;
+        }
+        .bordered{
+            border-spacing: 0;/*去除默认样式*/
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            box-shadow: 0px 1px 1px #ccc;
+        }
+
+        .bordered th:first-child{
+            border-radius: 6px 0 0 0;
+        }
+        .bordered th:last-child{
+            border-radius: 0 6px 0 0;
+        }
+        .bordered thead tr:first-child{
+            background: #dce9f9;
+        }
+        .bordered th,.bordered td{
+            border-left:1px solid #ccc;
+            border-top:1px solid #ccc;
+            padding:10px;
+            text-align: left;
+        }
+        .bordered  th{
+            border-top:none
+        }
+        .bordered th:first-child,.bordered td:first-child{
+            border-left: none;
+        }
+        .bordered tr{
+            transition: all 0.1s ease-in-out;
+        }
+        .bordered tr:hover{
+            background: #fbf8e9;
+        }
+        /*zebra*/
+        .zebra{
+            width: 100%;
+            border-spacing:0;
+        }
+        .zebra thead tr,.zebra tfoot tr{
+            background: #f5f5f5;
+        }
+
+        .zebra th{
+            border-bottom: 1px solid #ccc;
+        }
+        .zebra th:first-child{
+            border-radius: 6px 0 0 0;
+        }
+        .zebra th:last-child{
+            border-radius: 0 6px 0 0;
+        }
+
+        .zebra th,.zebra td{
+            padding:10px;
+        }
+        .zebra tr:nth-child(even){
+            background: #f5f5f5;
+        }
+        .zebra tfoot td{
+            border-top: 1px solid #fff;
+        }
+        .zebra tfoot td:first-child{
+            border-radius:0 0 0 6px;
+        }
+        .zebra tfoot td:last-child{
+            border-radius:0 0 6px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>IMDB Top 10 Movies</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>The Shawshank Redemption</td>
+                    <td>1994</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>The Godfather</td>
+                    <td>1972</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>The Godfather:Part II</td>
+                    <td>1974</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>The Good,the Bad and the Ugly</td>
+                    <td>1966</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="height: 50px"></p>
+
+        <table class="zebra">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>IMDB Top 10 Movies</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>The Shawshank Redemption</td>
+                    <td>1994</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>The Godfather</td>
+                    <td>1972</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>The Godfather:Part II</td>
+                    <td>1974</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>The Good,the Bad and the Ugly</td>
+                    <td>1966</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+</html>

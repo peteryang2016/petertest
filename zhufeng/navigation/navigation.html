@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../magnifier/css/reset.min.css">
+  <style>
+    html,body{
+      height: 100%;
+      overflow: hidden;
+    }
+    .menuBox{
+      margin:20px auto;
+      width: 700px;
+      height: 270px;
+      border:1px solid #000000;
+    }
+    .navBox{
+      float: left;
+      width: 200px;
+      background: lightblue ;
+    }
+    .navBox ul li{
+
+      height: 30px;
+      line-height: 30px;
+    }
+    .navBox ul li a{
+      padding:0 10px;
+      display: block;
+      height: 100%;
+      font-size: 14px;
+      color: #555555;
+    }
+    /*.navBox ul li a:hover{
+      background: lightcoral;
+    }*/
+    .detailBox{
+      float: left;
+      width: 500px;
+      height: 100%;
+      background: #eeeeee;
+      font-size: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<section class="menuBox">
+  <nav class="navBox">
+    <ul>
+      <li><a href="#">导航1</a></li>
+      <li><a href="#">导航2</a></li>
+      <li><a href="#">导航3</a></li>
+      <li><a href="#">导航4</a></li>
+      <li><a href="#">导航5</a></li>
+      <li><a href="#">导航6</a></li>
+      <li><a href="#">导航7</a></li>
+      <li><a href="#">导航8</a></li>
+      <li><a href="#">导航9</a></li>
+    </ul>
+  </nav>
+  <div class="detailBox">导航1对应的详情内容</div>
+</section>
+<script src="../magnifier/js/jquery-1.11.3.min.js"></script>
+<script>
+  //基于事件委托给最外层的盒子的mouse-over绑定方法，这样不管操作后代元素中的谁的mouseover，这个方法都会执行
+  let $detailBox = $('.detailBox')
+  $(document.body).on('mouseover',function (ev) {
+    let target = ev.target;
+    let tag = target.tagName;
+
+    let $target = $(target)//把js对象target转换为jquery对象
+    let $pars = $target.parents();//获取当前事件源的祖先元素
+    let flag = $pars.filter('.navBox').length>0?true:false;
+    //如果事件源是navBox中的a或者li,让detailBox显示
+    if((tag==='A' || tag==='LI') && flag){//true祖先中包含navBox,false相反
+      let val = $target.text().match(/\d+/)
+      $detailBox.css('display','block').html(`导航${val}对应的内容`)
+      return
+    }
+
+    //如果事件源是detailBox或者是他的后代元素，不做处理。
+    /*if($target.hasClass('detailBox')||$pars.filter('.detailBox').length>0){
+      return
+    }*/
+    $detailBox.css('display','none')
+
+  })
+  $detailBox.on('mouseover',function (ev) {//触发$detailBox的时候，到这里也阻止冒泡
+    ev.stopPropagation()
+  })
+</script>
+</body>
+</html>

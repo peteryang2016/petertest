@@ -1,0 +1,174 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jquery漂浮广告代码</title>
+    <link rel="stylesheet" href="magnifier/css/reset.min.css">
+    <link rel="stylesheet" href="test.css">
+    <script src="http://www.wjrmyy.com/Styles/bluesky/js/base/jquery.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<!--<div id="imgDiv" style="position:absolute;left:50px;top:60px;">
+    <div id="a" style="width:20px;height:20px;position:absolute;left:160px;background:salmon;text-align: center;">×</div>
+    &lt;!&ndash; <img src="01.jpg" border="0" /> &ndash;&gt;
+    <div style="width:180px;height:180px;background:red;"></div>
+</div>-->
+
+<div id="tip">
+    <div class="title">提示</div>
+    <ul>
+        <li class="con"><img src="tip.png" alt="">吴江区第一人民医院预约挂号可正常使用</li>
+        <li class="con"><img src="tip.png" alt="">苏州市第九人民医院官方网站正在建设中......</li>
+    </ul>
+    <!--
+    <div class="con">吴江区第一人民医院预约挂号可正常使用</div>
+    <div class="con">苏州市第九人民医院官方网站正在建设中......</div>
+    -->
+</div>
+
+
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<p>111</p>
+<script>
+    var xin = true,
+        yin = true;
+    var step = 1;
+    var delay = 10;
+    var $obj;
+    $(function() {
+        $obj = $("#tip");
+        var time = window.setInterval("move()", delay);
+        $obj.mouseover(function() {
+            clearInterval(time)
+        });
+        $obj.mouseout(function() {
+            time = window.setInterval("move()", delay)
+        });
+    });
+
+    function move() {
+        var left = $obj.offset().left;
+        var top = $obj.offset().top;
+        var L = T = 0; //左边界和顶部边界
+        var R = $(window).width() - $obj.width(); // 右边界
+        var B = $(window).height() - $obj.height(); //下边界
+
+        //难点:怎样判断广告的4个边框有没有超出可视化范围!
+        if (left < L) {
+            xin = true; // 水平向右移动
+        }
+        if (left > R) {
+            xin = false;
+        }
+        if (top < T) {
+            yin = true;
+        }
+        if (top > B) {
+            yin = false;
+        }
+        //根据有没有超出范围来确定广告的移动方向
+        left += step * (xin == true ? 1 : -1);
+        top  += step * (yin == true ? 1 : -1);
+        // 给div 元素重新定位
+        $obj.offset({
+            top: top,
+            left: left
+        })
+    }
+    //关闭
+    $(function() {
+        $("#a").click(function() {
+            var b = $("#a").parent();
+            $(b).remove();
+        })
+    })
+</script>
+</body>
+</html>

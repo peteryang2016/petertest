@@ -1,0 +1,12 @@
+@con-bg:#ffffff;
+@text-black:#555;
+@text-gray:#999;
+@text-active:#e01d20;
+
+.transition(@property:all,@duration:1s,@timing-function:linear,@delay:0s){
+  -webkit-transition:@arguments;//all .5s linear 0s  可以把四个参数依次输入到这里@property @duration @timing-function @delay
+  -moz-transition:@arguments;
+  -o-transition:@arguments;
+  -ms-transition:@arguments;
+  transition:@arguments;//动画，.5s加完红色边框
+}

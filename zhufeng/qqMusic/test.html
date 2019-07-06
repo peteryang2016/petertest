@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    #inner{
+        width:200px;
+        height: 200px;
+        background: yellow;
+    }
+      #outer{
+          width: 400px;
+          height: 400px;
+          background: red;
+      }
+  </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+    </div>
+</div>
+<script src="js/zepto.min.js"></script>
+<script>
+document.onclick = function () {
+    console.log('document');
+}
+document.documentElement.onclick = function () {
+    console.log('html');
+}
+document.body.onclick=function () {
+    console.log('body');
+}
+outer.onclick=function () {
+    console.log('outer');
+}
+inner.onclick = function () {
+    console.log('inner');
+    console.log('inner');
+}
+</script>
+</body>
+</html>

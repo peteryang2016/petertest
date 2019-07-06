@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>爱康健康问卷</title>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="爱康健康问卷">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static-aqs.health.ikang.com/promo/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">
+  <!--加载本项目 css 文件-->
+  <link rel="stylesheet" href="https://static-aqs.health.ikang.com/promo/health-qa/style/normalize.css"/>
+  <link rel="stylesheet" href="https://static-aqs.health.ikang.com/promo/health-qa/style/style.css"/>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5226c55276f9041d0ce44376b4b5db07";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</head>
+<body>
+<div id="app" v-cloak>
+  <div class="wrap" :style="{'height': winHeight + 'px'}" :class="{'isPC': !device.mobile()}">
+    <!-- <header>
+      <div class="header-bar" v-if="questionnaireData.appointmentId === '30' || questionnaireData.appointmentId === '50'">
+        欢迎填写健康问卷
+      </div>
+    </header> -->
+    <div class="frontPage" :style="{'height': frontHeight + 'px'}" v-if="type == 0">
+      <div class="banner">
+        健康问卷
+      </div>
+      <div class="intro">
+        本问卷目的是为了简要了解您的基本健康情况和习惯，您所提供的每项内容和信息都将有助于医生对您的健康危险因素进行分析和医学指导，请您务必如实填写，我们将对您的个人信息严格保密。谢谢您的理解与支持!
+      </div>
+      <div class="base-info" v-if="qaData[0] && qaData[0].qas && qaData[0].qas[0]">
+        <div class="base-info__item">
+          <span class="label">{{qaData[0].qas[0].key}}</span>
+          <input class="base-info__item-input" v-model="userName" readonly/>
+        </div>
+        <div class="base-info__item">
+          <span class="label" v-text="qaData[0].qas[1].key">{{qaData[0].qas[1].key}}</span>
+          <input class="base-info__item-input" v-model="userSex" readonly/>
+        </div>
+        <div class="base-info__item">
+          <span class="label">{{qaData[0].qas[2].key}}</span>
+          <input class="birth-input" type="date" defaultValue="1990-01-01" v-model="qaData[0].qas[2].value"
+                 placeholder="请选择生日" @change="birth"
+                 v-if="device.mobile()"/>
+          <span class="date-tip" :class="{'date-tip_active':qaData[0].qas[2].value}" v-if="device.mobile()">{{qaData[0].qas[2].value || '请选择生日'}}</span>
+          <el-date-picker v-if="!device.mobile()"
+                          v-model="qaData[0].qas[2].value"
+                          align="right"
+                          type="date"
+                          placeholder="选择生日"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd"
+                          :picker-options="pickerOptions"
+                          default-value="1990-01-01"
+                          :editable="false">
+          </el-date-picker>
+        </div>
+        <div class="base-info__item">
+          <span class="label">{{qaData[0].qas[3].key}}</span>
+          <el-radio v-model="qaData[0].qas[3].value" label="是" :class="{'is-checked':qaData[0].qas[3].value==='是'}"
+                    border>是
+          </el-radio>
+          <el-radio v-model="qaData[0].qas[3].value" label="否" :class="{'is-checked':qaData[0].qas[3].value==='否'}"
+                    border>否
+          </el-radio>
+        </div>
+      </div>
+      <div class="begin" @click="begin">
+        开始填写
+      </div>
+      <div class="copyright">
+        本服务由爱康集团提供
+      </div>
+    </div>
+    <div class="begin-answer" v-if="type > 0">
+      <div class="progress-bar">
+        <el-progress :percentage="percent" color="#FC7D3D"></el-progress>
+      </div>
+      <div class="qa-content-wrap" :style="{'height': qContentWrapHeight + 'px'}"
+           v-if="qaData[type] && qaData[type].qas && qaData[type].qas[typeQaIndex]">
+        <div class="qInfo">
+          <div class="type">
+            {{qaData[type] && qaData[type].title}}
+          </div>
+          <div class="question">
+            {{qaData[type].qas[typeQaIndex].key}} <span class="remark" v-if="qaData[type].qas[typeQaIndex].remark">{{qaData[type].qas[typeQaIndex].remark}}</span><span
+            v-if="questionType(qaData[type].qas[typeQaIndex]) !== '填空'">{{'（' + questionType(qaData[type].qas[typeQaIndex]) + '）'}}</span>
+          </div>
+        </div>
+        <div class="answerInfo" :style="{'height': qContentHeight + 'px'}">
+          <div class="option"
+               v-if="qaData[type] && qaData[type].qas && qaData[type].qas[typeQaIndex] && qaData[type].qas[typeQaIndex].options">
+            <!--多选-->
+            <el-checkbox-group v-model="qaData[type].qas[typeQaIndex].value"
+                               v-if="questionType(qaData[type].qas[typeQaIndex]) === '多选'">
+              <el-checkbox :label="option" v-for="option in qaData[type].qas[typeQaIndex].options"></el-checkbox>
+            </el-checkbox-group>
+
+            <!--单选-->
+            <div class="radios"
+                 v-if="questionType(qaData[type].qas[typeQaIndex]) === '单选'">
+              <el-radio v-model="qaData[type].qas[typeQaIndex].value" :label="option"
+                        v-for="option in qaData[type].qas[typeQaIndex].options"
+                        v-if="!qaData[type].qas[typeQaIndex].fills">{{option}}
+              </el-radio>
+              <div class="radios-contain-fills" v-if="qaData[type].qas[typeQaIndex].fills">
+                <el-radio v-model="qaData[type].qas[typeQaIndex].value" label="是">是
+                </el-radio>
+                <div class="radio-fill-wrap" v-if="qaData[type].qas[typeQaIndex].value==='是'">
+                  <div class="triangle_border_up">
+                    <span></span>
+                  </div>
+                  <div class="radio-fill">
+                    <div class="radio-fill__item" v-for="item in qaData[type].qas[typeQaIndex].fills">
+                      <span class="label">{{item.key}}</span>
+                      <el-input type="number" v-model="item.value" placeholder="请输入"></el-input>
+                      <span class="unit" v-if="item.unit">{{item.unit}}</span>
+                    </div>
+                  </div>
+                </div>
+                <el-radio v-model="qaData[type].qas[typeQaIndex].value" label="否">否
+                </el-radio>
+              </div>
+            </div>
+          </div>
+          <div class="fills" v-else>
+            <el-input type="number" v-model="qaData[type].qas[typeQaIndex].value" placeholder="请输入"></el-input>
+            <span class="unit" v-if="qaData[type].qas[typeQaIndex].unit">{{qaData[type].qas[typeQaIndex].unit}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="operate" v-if="current<total-1">
+        <el-button @click="goPrev(qaData[type].qas)">上一步</el-button><el-button type="primary" @click="goNext(qaData[type].qas)">下一步</el-button>
+      </div>
+      <div class="submit" v-if="current==total-1">
+        <el-button type="primary" @click="submit">提交</el-button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://static-aqs.health.ikang.com/promo/health-qa/js/device.min.js"></script>
+<script src="https://static-aqs.health.ikang.com/promo/healthbook/js/vue.min.js"></script>
+
+<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>
+<script src="https://static-aqs.health.ikang.com/promo/common/js/jquery-1.9.1.min.js"></script>
+
+<script src="https://static-aqs.health.ikang.com/promo/health-qa/js/data.js"></script>
+<script>
+  document.addEventListener('blur', function(e) {
+    // 这里加了个类型判断，因为a等元素也会触发blur事件
+    ['input'].indexOf(e.target.localName) > -1 && document.body.scrollIntoView(false)
+  }, true);
+  var app = new Vue({
+    el: '#app',
+    data: {
+      winHeight: 500,
+      frontHeight: 200,
+      qContentHeight: 200,
+      qContentWrapHeight: 200,
+      current: 0,
+      percent: 0,
+      type: 0,
+      typeQaIndex: 0,
+      total: 23,
+      userName: '',
+      userSex: '',
+      birthMax: '',
+      qaData: [],
+      pickerOptions: {
+        disabledDate: function(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      inSubmit: false
+    },
+    methods: {
+      getUserInfo: function() {
+        var that = this;
+        $.ajax({
+          url: global.host + '/evaluate/getAppointmentDetail',
+          type: "post",
+          data: {
+            appointmentId: questionnaireData.appointmentId
+          },
+          cache: false,
+          success: function(res) {
+            if (res.code === '1') {
+              var data = res.results;
+              that.userName = data.examUser;
+              var userSex;
+              if (data.examUserSex === '0') {
+                userSex = '女';
+              } else if (data.examUserSex === '1') {
+                userSex = '男';
+              } else {
+                userSex = data.examUserSex;
+              }
+              that.userSex = userSex;
+              questionnaireData.results[0].qas[0].value = data.examUser;
+              questionnaireData.results[0].qas[1].value = userSex;
+            } else {
+              that.$alert('网络错误，请稍后再试～', '')
+            }
+          },
+          error: function() {
+            that.$alert('网络错误，请稍后再试～', '')
+          }
+        });
+      },
+      questionType: function(obj) {
+        if (obj.options) {
+          if (typeof obj.value === 'string') {
+            return '单选'
+          } else {
+            return '多选'
+          }
+        } else {
+          return '填空'
+        }
+      },
+      begin: function() {
+        if (this.qaData[0] && this.qaData[0].qas) {
+          var arrQA = this.qaData[0].qas;
+          for (var i = 0, len = arrQA.length; i < len; i++) {
+            if (!arrQA[i].value) {
+              this.$alert(arrQA[i].key + '不能为空', '提示');
+              return;
+            }
+          }
+          this.type++;
+          if (this.qaData[0].qas[1].value === '男') {
+            this.total -= 5
+          }
+          console.log(this.type, this.typeQaIndex, this.current)
+        }
+      },
+      contentHeight: function() {
+        this.winHeight = window.innerHeight;
+        this.frontHeight = this.winHeight;
+        this.qContentWrapHeight = this.winHeight - 56 - 40;
+        // if (questionnaireData.appointmentId === '30' || questionnaireData.appointmentId === '50') {
+        //   this.frontHeight = this.winHeight - 44;
+        //   this.qContentWrapHeight = this.winHeight - 44 - 56 - 40;
+        // } else {
+        //   this.frontHeight = this.winHeight;
+        //   this.qContentWrapHeight = this.winHeight - 56 - 40;
+        // }
+        this.qContentHeight = this.qContentWrapHeight - 94;
+      },
+      isConflict: function(val) {
+        return val.length > 1 && (val.indexOf('无') > -1 || val.indexOf('无疾病') > -1 || val.indexOf('否') > -1 || val.indexOf('不喝') > -1 || val.indexOf('什么都喝') > -1)
+      },
+      addPercent: function() {
+        if (this.current < this.total - 1) {
+          this.current++;
+          this.percent = Math.floor(this.current / this.total * 100)
+        } else {
+          this.current = this.total;
+          this.percent = 100
+        }
+        console.log(this.current, this.total, this.percent)
+      },
+      reducePercent: function() {
+        if (this.current > 0) {
+          this.current--;
+          this.percent = Math.floor(this.current / this.total * 100)
+        } else {
+          this.current = 0;
+          this.percent = 0;
+        }
+        console.log(this.current, this.total, this.percent)
+      },
+      isCanPass: function(obj) {
+        if (this.type === 7 && this.typeQaIndex === 2) {
+          return true;
+        } else {
+          if (obj[this.typeQaIndex] && !obj[this.typeQaIndex].value.length) {
+            this.$alert(this.questionType(obj[this.typeQaIndex]) === '填空' ? '请输入您的答案' : '请选择您的答案', '提示');
+            return false;
+          }
+          if (typeof obj[this.typeQaIndex].value === 'object' && this.isConflict(obj[this.typeQaIndex].value)) {
+            this.$alert('您的选项冲突，请检查', '提示');
+            return false;
+          }
+          if (obj[this.typeQaIndex].value === '是' && obj[this.typeQaIndex].fills) {
+            for (var i = 0, l = obj[this.typeQaIndex].fills.length; i < l; i++) {
+              var val = obj[this.typeQaIndex].fills[i].value;
+              if (!val) {
+                this.$alert('请输入您的答案', '提示');
+                return false;
+              }
+            }
+          }
+          return true;
+        }
+      },
+      goNext: function(obj) {
+        if(!this.isCanPass(obj)) {
+          return false;
+        }
+
+        // 生活习惯中 跳过项
+        if (this.type === 6) {
+          if (obj[this.typeQaIndex].value === '不吸') {
+            this.typeQaIndex += 3;
+            this.total -= 3;
+          } else if (this.typeQaIndex === 2 && obj[0].value === '吸烟') {
+            this.typeQaIndex += 1;
+            this.total--;
+          } else if (obj[this.typeQaIndex].value === '不喝') {
+            this.typeQaIndex += 5;
+            this.total -= 5;
+          } else if (this.typeQaIndex === 8 && obj[4].value === '喝') {
+            this.typeQaIndex += 1;
+            this.total--;
+          }
+        }
+
+        if (this.typeQaIndex >= obj.length - 1) {
+          this.type++;
+          this.typeQaIndex = 0;
+        } else {
+          this.typeQaIndex++;
+        }
+        this.addPercent();
+      },
+      goPrev: function(obj) {
+        // 生活习惯中 跳过项
+        if (this.type === 6) {
+          if (this.typeQaIndex === 4 && obj[0].value === '不吸') {
+            this.typeQaIndex -= 3;
+            this.total += 3;
+          } else if (this.typeQaIndex === 4 && obj[0].value === '吸烟') {
+            this.typeQaIndex -= 1;
+            this.total++;
+          } else if (this.typeQaIndex === 10 && obj[4].value === '不喝') {
+            this.typeQaIndex -= 5;
+            this.total += 5;
+          } else if (this.typeQaIndex === 10 && obj[4].value === '喝') {
+            this.typeQaIndex -= 1;
+            this.total++;
+          }
+        }
+
+        if (this.typeQaIndex === 0) {
+          this.type--;
+          if (this.type === 0) {
+            this.typeQaIndex = 0
+          } else {
+            this.typeQaIndex = this.qaData[this.type].qas.length - 1
+          }
+        } else {
+          this.typeQaIndex--;
+        }
+
+        this.reducePercent();
+      },
+      submit: function() {
+        if(!this.isCanPass(this.qaData[this.type].qas)) {
+          return false;
+        }
+        if (!this.inSubmit) {
+          global.init();
+          var postData = new FormData();
+          postData.append('result', JSON.stringify(questionnaireData));
+          this.isSubmit = true;
+          $.ajax({
+            url: global.host + '/evaluate/saveResult',
+            type: "post",
+            data: postData,
+            dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(res) {
+              if (res.code === '1') {
+                window.localStorage.setItem('appointmentId', questionnaireData.appointmentId);
+                // history.replaceState(null, '健康问卷', 'complete.html');
+                location.href = 'complete.html'
+              } else {
+                this.isSubmit = false;
+                this.$alert('网络错误，请稍后再试～', '')
+              }
+            },
+            error: function() {
+              this.isSubmit = false;
+              this.$alert('网络错误，请稍后再试～', '')
+            }
+          });
+        }
+      },
+      getQueryString: function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+      },
+      birth: function(e) {
+        var val = e.target.value;
+        var date_now = new Date();
+        var year = date_now.getFullYear();
+        var month = date_now.getMonth() + 1 < 10 ? "0" + (date_now.getMonth() + 1) : (date_now.getMonth() + 1);
+        var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate();
+        if (new Date().getTime() < new Date(val).getTime()) {
+          this.qaData[0].qas[2].value = year + '-' + month + '-' + date
+        }
+      }
+    },
+    mounted: function() {
+      this.qaData = questionnaireData.results;
+      this.contentHeight();
+      global.init();
+      questionnaireData.appointmentId = this.getQueryString('appointmentId');
+      this.getUserInfo();
+      // questionnaireData.results[0].qas[0].value = this.userName;
+      // questionnaireData.results[0].qas[1].value = this.userSex;
+
+    }
+  })
+</script>
+<script>
+  javascript:(function () {
+    if (location.search.indexOf('eDebug') > -1) {
+      var script = document.createElement('script');
+      script.src = "http://eruda.liriliri.io/eruda.min.js";
+      document.body.appendChild(script);
+      script.onload = function () {
+        eruda.init()
+      }
+    }
+  })();
+</script>
+</body>
+</html>

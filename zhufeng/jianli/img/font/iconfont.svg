@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="weibiaoti38" unicode="&#58935;" d="M512-128C229.6-128 0 101.6 0 384S229.6 896 512 896s512-229.6 512-512S794.4-128 512-128zM512 800c-229.6 0-416-186.4-416-416 0-229.6 186.4-416 416-416s416 186.4 416 416C928 613.6 741.6 800 512 800z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

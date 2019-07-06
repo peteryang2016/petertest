@@ -1,0 +1,247 @@
+@import "reset";//清除默认样式
+@import "swiper";//swiper插件
+@import "font";//字体图标
+@import "common";//公共的less资源
+html{
+  font-size: 100px;//640设计稿：1rm=100px
+}
+html,body{
+  overflow-x: hidden;
+}
+.mainBox{
+  margin:0 auto;
+  max-width: 640px;
+  background: #f4f4f4;
+}
+/*headerBox*/
+
+.headerBox{
+  padding:0 .2rem;
+  height: 1rem;
+  line-height: 1rem;/*让子元素垂直居中*/
+  background: @blue;
+  overflow: hidden;
+  h1{
+    float:left;
+    font-size: 0;
+    i{
+      font-size: .8rem;
+      color:#ffffff;
+
+    }
+
+  }
+  a{
+    float: right;
+    margin-left: .32rem;
+    width: .44rem;
+    height: 100%;
+    &.weather{
+      background: url("../img/cloud.gif") no-repeat center center;
+      background-size: 100%
+    }
+    &.person,&.navMenu{
+      font-size: .44rem;
+      color:#ffffff
+    }
+
+  }
+}
+
+/*navBox*/
+.navBox{
+  padding:.16rem;
+  display: none;
+  a{
+    float: left;
+    width: unit(100/6,%);
+    height: .64rem;
+    line-height: .64rem;
+    text-align: center;
+    font-size: .32rem;
+    color: @text;
+  }
+}
+
+/*banner*/
+.bannerBox{
+  position: relative;
+  height: 3.4rem;
+  overflow: hidden;
+  display:none;//当js中数据动态绑定完成，我们才显示这个区域
+  .swiper-slide{
+    height: 100%;
+    position: relative;
+
+    img{
+      display: block;
+      width: 100%;
+      height:100%;
+    }
+    p{
+      position: absolute;
+      left: 0;
+      bottom:0;
+      padding:0 .2rem;
+      width: 100%;
+      box-sizing: border-box;
+      height: .6rem;
+      line-height: .6rem;
+      font-size: .28rem;
+      color:#ffffff;
+      background: rgba(0,0,0,.5);
+      .text-clip;
+    }
+  }
+  .swiper-pagination{
+    z-index: 10;/*不写也可以*/
+    left:auto;
+    right:0;
+    bottom:0;
+    width:1rem;
+    height: .6rem;
+    line-height: .6rem;
+    text-align: center;
+    font-size: .28rem;
+    color: rgba(255,255,255,.5);
+    .swiper-pagination-current{
+      color:#ffffff;
+      font-weight: bold;
+    }
+  }
+}
+
+/*message*/
+.messageBox{
+  display: none;
+  position: relative;
+  margin:.16rem 0;
+  background: #ffffff;
+  height: .8rem;
+  .liveFlag{
+    position:absolute;
+    top:0;
+    left:0;
+    width: 1rem;
+    height: .8rem;
+    &:after{
+      position: absolute;
+      top:50%;
+      left: 50%;
+      margin: -.2rem 0 0 -.37rem;
+      width: .74rem;
+      height: .4rem;
+      line-height: .4rem;
+      text-align: center;
+      font-size: .3rem;
+      color: #fff;
+      background: @red;
+      content:'直播';
+    }
+  }
+  .swiper-container{
+    margin-left: 1rem;
+    height: .8rem;
+    overflow: hidden;
+    .swiper-slide{
+      height: .8rem;
+      line-height: .8rem;
+      a{
+        width: 100%;
+        height: 100%;
+        display: block;
+        font-size: .28rem;
+        color: @text;
+        .text-clip;
+      }
+    }
+  }
+}
+
+/*new*/
+.newsBox{
+  display: none;
+  padding:0 .2rem;
+  background: #ffffff;
+  .newsGroup{
+    li{
+      padding:.2rem 0;
+      border-bottom:.02rem solid #DDD;
+      a{
+        display: block;
+        position: relative;
+        div{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 2rem;
+          height: 1.28rem;
+          background: #ccc;/*延迟加载时使用*/
+          img{
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0;/*延迟加载时使用*/
+            .transition;
+          }
+        }
+        h3{
+          margin-left: 2.2rem;
+          height: .96rem;
+          line-height: unit(.96/2,rem);
+          color: @gray;
+          font-size: .30rem;
+          font-weight: normal;
+        }
+        span{
+          display: block;
+          margin-left: 2.2rem;
+          text-align: right;
+          height: .32rem;
+          line-height: .32rem;
+          font-size: .22rem;
+          color: lighten(@gray,20%);/*lighten在某个颜色上变浅（在@gray的颜色基础上变20%浅）*/
+          vertical-align: middle;
+          i{
+            font-size: .24rem;
+            margin-left: .1rem;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      &.latest{
+        a{
+          span,h3{
+            margin-left: 0;
+          }
+          h3{
+            height: .48rem;
+            .text-clip
+          }
+
+          div{
+            position: static;
+            margin: .3rem 0;
+            width: 100%;
+            height: 1.24rem;
+            background: none;
+            p{
+              float:left;
+              width: 32%;
+              height: 100%;
+              margin-right: 2%;
+              &:nth-last-of-type(1){
+                margin-right: 0;
+              }
+              background: #ccc;
+            }
+          }
+
+
+        }
+      }
+    }
+  }
+
+}

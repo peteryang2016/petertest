@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个性化链接样式</title>
+    <style>
+        ul,li{padding:0;margin:0px;list-style: none}
+        a{
+            font-size: 16px;
+            padding-right: 20px;
+            display: inline-block;
+            background: url("images/type.png") no-repeat 0 0;
+        }
+        a[href^="http://"]{
+            background-position: 100% 0;
+        }
+        a[href$="doc"]{
+            background-position: 100% 0;
+        }
+        a[href$="xls"]{
+            background-position: 100% -74px;
+        }
+        a[href$="pdf"]{
+            background-position: 100% -126px;
+        }
+        a[href$="zip"]{
+            background-position: 100% -221px;
+        }
+        a[href$="ppt"]{
+            background-position: 100% -50px;
+        }
+        a[href$="ppt"]{
+            background-position: 100% -150px;
+        }
+        a[href$="jpg"]{
+            background-position: 100% -170px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="http://www.sohu.com/test.xls">excel文件</a></li>
+    <li><a href="http://www.sohu.com/test.doc">word文档下载</a></li>
+    <li><a href="http://www.sohu.com/test.pdf">pdf文件下载</a></li>
+    <li><a href="http://www.sohu.com/test.zip">zip文件</a></li>
+    <li><a href="http://www.sohu.com/test.ppt">ppt文件</a></li>
+    <li><a href="http://www.sohu.com/test.html">HTML文件下载</a></li>
+    <li><a href="http://www.sohu.com/test.jpg">jpg图像</a></li>
+</ul>
+</body>
+</html>

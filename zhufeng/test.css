@@ -1,0 +1,34 @@
+#tip{
+    width: 180px;
+    height: 180px;
+    padding:10px;
+    background-color: #115296;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #ffffff;
+}
+#tip ul{padding: 0px; margin: 0px}
+#tip ul li{list-style: none;padding: 0;margin:0}
+#tip .title{
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    letter-spacing: 10px;
+}
+#tip .con{
+    line-height: 30px;
+    text-align: left;
+}
+#tip .con img{
+    padding-right: 10px;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+}
