@@ -9,14 +9,14 @@ export default class TodoApp extends React.Component{
         super(props)
         this.state={
             todos:[
-                {id:Math.round(Math.random()*100),title:'React学习',completed:true},
-                {id:Math.round(Math.random()*100),title:'vue学习',completed:false}
+                {id:Math.round(Math.random()),title:'React学习',completed:true},
+                {id:Math.round(Math.random()),title:'vue学习',completed:false}
             ],
             filterType:filterTypes.ALL
         }
     }
     addTodo = (todo)=>{
-        todo = {id:Math.round(Math.random()*100),completed:false,...todo}
+        todo = {id:Math.round(Math.random()),completed:false,...todo}
         let todos = this.state.todos;
         todos.push(todo)
         this.setState({todos:todos})
