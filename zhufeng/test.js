@@ -1,6 +1,18 @@
-var ary = [1,2,3,4]
-var newAry = ary.map(item=>{
-    console.log(item * 2);
-    return item*2
-})
-console.log(newAry);
+class Person{
+    constructor(){
+        this.name='peter';
+        this.age=19;
+        this.sayName()
+    }
+
+    sayName(){
+        console.log(this.name)
+    }
+    sayAge(){
+        console.log(this.age)
+    }
+}
+let person = new Person();
+person.sayAge()
+
+

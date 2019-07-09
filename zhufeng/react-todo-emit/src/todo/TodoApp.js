@@ -24,7 +24,7 @@ export default class TodoApp extends React.Component{
         todos.push(todo)
         this.setState({todos:todos})
     }*/
-    toggle = (id)=>{
+    /*toggle = (id)=>{
         let todos = this.state.todos;
         todos = todos.map((todo)=>{
             if(todo.id===id){
@@ -34,15 +34,15 @@ export default class TodoApp extends React.Component{
         })
         this.setState({todos:todos})
 
-    }
-    removeItem = (id)=>{
+    }*/
+    /*removeItem = (id)=>{
         let todos = this.state.todos;
         todos = todos.filter(todo=>{
             return todo.id!=id
         })
         this.setState({todos})
-    }
-    toggleAll = (event)=>{
+    }*/
+    /*toggleAll = (event)=>{
         let checked = event.target.checked;
         let todos = this.state.todos;
         todos = todos.map(todo=>{
@@ -50,18 +50,18 @@ export default class TodoApp extends React.Component{
                 return todo
             })
         this.setState({todos})
-    }
+    }*/
     changeFilterType = (filterType)=>{
         console.log(filterType);
         this.setState({filterType})
     }
-    delCompleted = ()=>{
+    /*delCompleted = ()=>{
       let todos = this.state.todos
       todos = todos.filter((todo)=>{
         return !todo.completed
       })
       this.setState({todos})
-    }
+    }*/
     render(){
         let todos = this.props.model.todos;
         //判断未完成的数量
@@ -84,14 +84,14 @@ export default class TodoApp extends React.Component{
             <ul className="list-group">
                 {
                     this.props.model.todos.length>0?<li className="list-group-item">
-                    <input type="checkbox" checked={activeTodoCount===0?true:false} onChange={this.toggleAll}/>{activeTodoCount===0?'取消全选':'全部选中'}
+                    <input type="checkbox" checked={activeTodoCount===0?true:false} onChange={this.props.model.toggleAll}/>{activeTodoCount===0?'取消全选':'全部选中'}
                     </li>:null
                 }
 
                 {
                     showTodos.map((todo,index)=>{
                     //this.state.todos.map((todo,index)=>{
-                       return <TodoItem removeItem={this.removeItem} toggle={this.toggle} key={index} todo={todo} />
+                       return <TodoItem removeItem={this.props.model.removeItem} toggle={this.props.model.toggle} key={index} todo={todo} />
                     })
                 }
             </ul>
@@ -108,7 +108,7 @@ export default class TodoApp extends React.Component{
                                 {main}
                             </div>
                             <div className="panel-footer">
-                                <TodoFooter changeFilterType={this.changeFilterType} activeTodoCount={activeTodoCount} filterType={this.state.filterType} delCompleted={this.delCompleted} completedTodoCount={completedTodoCount}/>
+                                <TodoFooter changeFilterType={this.changeFilterType} activeTodoCount={activeTodoCount} filterType={this.state.filterType} delCompleted={this.props.model.delCompleted} completedTodoCount={completedTodoCount}/>
                             </div>
                         </div>
                     </div>
