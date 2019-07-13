@@ -36,9 +36,15 @@ class Main extends React.Component{
 }
 
 class Content extends React.Component{
+  static contextTypes = {
+    color:PropTypes.string,
+    setColor:PropTypes.func
+  }
     render(){
         return(
-            <div>我是内容</div>
+            <div style={{color:this.context.color}}>我是内容
+            <button onClick={()=>this.context.setColor('yellow')}>变色</button>
+            </div>
         )
     }
 }
