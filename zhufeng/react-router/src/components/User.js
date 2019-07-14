@@ -5,18 +5,18 @@ export default class User extends React.Component{
         return(
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-2">
                         <ul>
-                            <li><Link to='/user/usera'>User1</Link></li>
-                            <li><Link to='/user/userb'>User2</Link></li>
+                            <li><Link to='/user/add'>添加用户</Link></li>
+                            <li><Link to='/user/list'>用户列表</Link></li>
                         </ul>
                     </div>
-                    <col-md8>
+                    <div className="col-md-10">
                         <Router>
-                            <Route path="/user/usera" component={Usera} />
-                            <Route path="/user/userb" component={Userb} />
+                            <Route path="/user/add" component={Add} />
+                            <Route path="/user/list" component={List} />
                         </Router>
-                    </col-md8>
+                    </div>
                 </div>
             </div>
 
@@ -24,9 +24,9 @@ export default class User extends React.Component{
     }
 }
 
-function Usera() {
+function Add() {
     return(<h1>User1</h1>)
 }
-function Userb() {
+function List() {
     return(<h1>User2</h1>)
 }
