@@ -36,6 +36,7 @@ export default (
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/user" component={User} />
+              {/*受保护的组件，不登录无法访问*/}
               <ProtectedRoute path="/profile" component={Profile} />
               <Route path="/login" component={login} />
               <Route component={NotFound} />
