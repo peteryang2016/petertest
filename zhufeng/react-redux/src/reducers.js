@@ -1,12 +1,12 @@
-import {ADD_TODO, TOGGLE_TODO,addTodo, SET_VISIBILITY_FILTER, visibiletyFilter} from './action';
+import {ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, visibiletyFilter} from './action';
 const {SHOW_ALL}  = visibiletyFilter
 
 const initialState = {
   visibilityFilter: visibiletyFilter.SHOW_ALL,
-  todos: []
+  todos: [{text:'默认TODO项目',completed:false}]
 }
 
-function todoAPP(state={},action) {
+function todoAPP(state=initialState,action) {
   return {
     visibilityFilter:visibilityFilter(state.visibilityFilter,action),
     todos:todos(state.todos,action)
@@ -52,8 +52,8 @@ function todos(state=[],action){//传递{type:TOGGLE_TODO,index:2}
         }
       ]
     case TOGGLE_TODO:
-      return state.todos.map((todo,index)=>{
-        if(index==action.index){
+      return state.map((todo,index)=>{
+        if(index===action.index){
               return Object.assign({},todo,{
                 completed:!action.completed
               })
