@@ -1,28 +1,19 @@
 import React from 'react';
-import {createStore} from 'redux';
-const INCREASE = 'INCREASE';
-const DESCREASE = 'DESCREASE';
-function reducers(state={num:10},action){
-  switch (action.type) {
-    case INCREASE:
-      return {num:state.num+action.num};
-    case DESCREASE:
-      return {num:state.num-action.num};
-    default:
-      return state
-  }
-}
-let store = createStore(reducers)
+import store from './store'
+import {INCREASE,DESCREASE} from "./actions";
 export default class Counter extends React.Component{
   constructor(){
     super()
-    this.state = {num:store.getState().num}
+    this.state = {num:store.getState().counter.num}
   }
   componentWillMount() {
+    console.log(store.getState().counter.num);
     this.unSubscribe = store.subscribe(()=>{
-      this.setState({num:store.getState().num});
+      //this.setState({num:store.getState().num});
+      this.setState({num:store.getState().counter.num});
     })
   }
+
   inScrease = ()=>{
     store.dispatch({type:INCREASE,num:2})
   }

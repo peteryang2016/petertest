@@ -2,24 +2,24 @@
 * 增加删除线功能
 * */
 import React from 'react'
-import {createStore} from 'redux'
+import store from './store'
 import {addTodo,
   deleteTodo,
   toggleTodo,
   toggleAll,
   setVisibilityFilter,
   visibilityFilter} from './actions'
-import {reducer} from './reducers'
 
-let store = createStore(reducer,{list:[{text:"todo7",completed:false},{text:"todo7",completed:true},{text:"todo7",completed:false}]})
+
 export default class Todo extends React.Component{
   constructor(){
     super()
-    this.state={list:store.getState().list,test:store.getState().test};
+    this.state={list:store.getState().todo.list};
   }
   componentWillMount() {
     this.unSubscribe = store.subscribe(()=>{
-      this.setState({list:store.getState().list,test:store.getState().test});
+      //this.setState({list:store.getState().list});
+      this.setState({list:store.getState().todo.list});
     })
   }
   componentWillUnmount() {
@@ -76,7 +76,6 @@ export default class Todo extends React.Component{
                   <li style={{"textDecoration":todo.completed?"line-through":'' }} key={index}>
                     <input type="checkbox" checked={todo.completed} onChange={()=>{this.clickToggle(index)}}/>{todo.text}
                     <button onClick={()=>this.handleClick(index)}>删除</button>
-                    <button onClick={()=>store.dispatch({type:'TEST',text:1})}>测试state-----------------{this.state.test}</button>
                   </li>
                 )
               })

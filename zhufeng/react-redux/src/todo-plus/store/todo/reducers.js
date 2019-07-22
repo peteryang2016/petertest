@@ -5,9 +5,8 @@ import {
   TOGGLE_ALL,
   SET_VISIBILITY_FILTER,
   visibilityFilter
-} from './actions'
-import {object} from "prop-types";
-export function reducer(state={test:{},visibilityFilter:visibilityFilter.SHOW_ALL,list:[{text:"todo1",completed:false},{text:"todo2",completed:true},{text:"todo3",completed:false}]},action){
+} from '../../actions'
+export default function reducer(state={test:{},visibilityFilter:visibilityFilter.SHOW_ALL,list:[{text:"todo1",completed:false},{text:"todo2",completed:true},{text:"todo3",completed:false}]},action){
   switch (action.type) {
     case ADD_TODO:
       return Object.assign({},state,{list:[...state.list,{text:action.text, completed: false}]})
