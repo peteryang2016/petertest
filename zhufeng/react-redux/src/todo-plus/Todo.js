@@ -10,16 +10,18 @@ import {addTodo,
   setVisibilityFilter,
   visibilityFilter} from './actions'
 
+let {SHOW_ALL,SHOW_COMPLETED,SHOW_ACTIVE} = visibilityFilter
+
 
 export default class Todo extends React.Component{
   constructor(){
     super()
-    this.state={list:store.getState().todo.list};
+    this.state={list:store.getState().todo.list,visibilityFilter:store.getState().todo.visibilityFilter};
   }
   componentWillMount() {
     this.unSubscribe = store.subscribe(()=>{
       //this.setState({list:store.getState().list});
-      this.setState({list:store.getState().todo.list});
+      this.setState({list:store.getState().todo.list,visibilityFilter:store.getState().todo.visibilityFilter});
     })
   }
   componentWillUnmount() {
@@ -58,7 +60,16 @@ export default class Todo extends React.Component{
     this.setState({list})
   }*/
   render(){
-    console.log(this.state);
+    let filterList = this.state.list.filter(todo=>{
+      switch (this.state.visibilityFilter) {
+        case SHOW_COMPLETED:
+          return todo.completed;
+        case SHOW_ACTIVE:
+          return !todo.completed
+        default:
+          return true
+      }
+    })
     let activeCount = this.state.list.reduce((count,todo)=>{
       return count+(todo.completed?0:1)
     },0)
@@ -66,7 +77,7 @@ export default class Todo extends React.Component{
         <div>
           <input type="text" onKeyUp={this.handleKeyDown}/>
 
-          <label><input type="checkbox" checked={activeCount==0?true:false} onChange={(event)=>{store.dispatch(toggleAll(event.target.checked))}}/>
+          <label><input type="checkbox" checked={activeCount===0?true:false} onChange={(event)=>{store.dispatch(toggleAll(event.target.checked))}}/>
             {activeCount===0?'取消全选':'全部选中'}
           </label>
           <ul>
