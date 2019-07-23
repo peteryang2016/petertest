@@ -9,7 +9,7 @@ import {addTodo,
   toggleAll,
   setVisibilityFilter,
   visibilityFilter} from './actions'
-
+import {connect} from 'react-redux'
 let {SHOW_ALL,SHOW_COMPLETED,SHOW_ACTIVE} = visibilityFilter
 
 
