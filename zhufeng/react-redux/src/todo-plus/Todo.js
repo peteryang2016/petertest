@@ -3,12 +3,14 @@
 * */
 import React from 'react'
 import store from './store'
-import {addTodo,
+import {
+  addTodo,
   deleteTodo,
   toggleTodo,
   toggleAll,
   setVisibilityFilter,
-  visibilityFilter} from './actions'
+  visibilityFilter, TOGGLE_TODO
+} from './actions'
 import {connect} from 'react-redux'
 let {SHOW_ALL,SHOW_COMPLETED,SHOW_ACTIVE} = visibilityFilter
 
@@ -80,7 +82,7 @@ export default class Todo extends React.Component{
           <label><input type="checkbox" checked={activeCount===0?true:false} onChange={(event)=>{store.dispatch(toggleAll(event.target.checked))}}/>
             {activeCount===0?'取消全选':'全部选中'}
           </label>
-          <ul>
+          {/*<ul>
             {
               this.state.list.map((todo,index)=>{
                 return (
@@ -91,7 +93,8 @@ export default class Todo extends React.Component{
                 )
               })
             }
-          </ul>
+          </ul>*/}
+          <VisibleTodoList/>
           <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_ALL))}>全部</button>
           <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_ACTIVE))}>未完成(6)</button>
           <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_COMPLETED))}>已完成</button>
@@ -99,3 +102,47 @@ export default class Todo extends React.Component{
       )
   }
 }
+class TodoList extends React.Component{
+  render() {
+    console.log(this.props);
+    return(
+      <ul>
+        {
+          this.props.list.map((todo,index)=>{
+            return (
+              <li style={{"textDecoration":todo.completed?"line-through":'' }} key={index}>
+                <input type="checkbox" checked={todo.completed} onChange={()=>{this.props.toggleTodo(todo.index)}}/>{todo.text}------{todo.index}
+                <button onClick={()=>this.handleClick(index)}>删除</button>
+              </li>
+            )
+          })
+        }
+      </ul>
+    )
+  }
+}
+function getVisibleTodos(list,filter) {
+  console.log(filter);
+  switch (filter) {
+    case SHOW_COMPLETED:
+      return list.filter(t=>t.completed)
+    case SHOW_ACTIVE:
+      return list.filter(t=>!t.completed)
+    default:
+      return list
+  }
+
+}
+//将store中的state映射给state
+const mapStateToProps = state=>{//state的值是connect调用mapstateToProps方法传递回来的store.getState()
+  console.log(state);
+  return{
+    list:getVisibleTodos(state.todo.list,state.todo.visibilityFilter)
+  }
+}
+//把展示组件变化同步到redux的store中
+const mapDispatchToProps = dispatch=>({
+
+  toggleTodo: index => dispatch(toggleTodo(index))
+})
+let VisibleTodoList = connect(mapStateToProps,mapDispatchToProps)(TodoList)

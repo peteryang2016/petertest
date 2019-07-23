@@ -12,8 +12,9 @@ export const visibilityFilter = {
   SHOW_ACTIVE:'SHOW_ACTIVE'
 
 }
+let nextTodoId = 0
 export function addTodo(text){
-  return {type:ADD_TODO,text}
+  return {type:ADD_TODO,text,index:nextTodoId++,completed:false}
 }
 export function deleteTodo(index){
   return {type:DELETE_TODO,index}
