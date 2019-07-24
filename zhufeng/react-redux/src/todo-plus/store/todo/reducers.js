@@ -3,10 +3,9 @@ import {
   DELETE_TODO,
   TOGGLE_TODO,
   TOGGLE_ALL,
-  SET_VISIBILITY_FILTER,
   visibilityFilter
 } from '../../actions'
-export default function reducer(state={list:[],visibilityFilter:visibilityFilter.SHOW_ACTIVE},action){//state={test:{},visibilityFilter:visibilityFilter.SHOW_ACTIVE,list:[{text:"todo1",index:"0",completed:false},{text:"todo2",index:"1",completed:true},{text:"todo3",index:"2",completed:false}]}
+export default function reducer(state={list:[]},action){//state={test:{},visibilityFilter:visibilityFilter.SHOW_ACTIVE,list:[{text:"todo1",index:"0",completed:false},{text:"todo2",index:"1",completed:true},{text:"todo3",index:"2",completed:false}]}
   switch (action.type) {
     case ADD_TODO:
       return Object.assign({},state,{list:[...state.list,{text:action.text,index:action.index, completed: action.completed}]})
@@ -19,15 +18,22 @@ export default function reducer(state={list:[],visibilityFilter:visibilityFilter
       * */
       return {list:state.list.filter((todo,index)=>index!==action.index)}
     case TOGGLE_TODO:
-      return {
-        visibilityFilter:visibilityFilter.SHOW_ACTIVE,//**********************修改
+
+      /*return Object.assign({},state,{list:state.list.map(todo=>todo.index===action.index?{completed:!todo.completed}:todo)})*/
+      /*return {
         list:state.list.map((todo,index)=>{//[{text:'',completed:false}]
           if(todo.index===action.index){
             return Object.assign({},todo,{completed:!todo.completed})
           }
           return todo
         })
-      }
+      }*/
+      return {...state,list:state.list.map((todo,index)=>{//[{text:'',completed:false}]
+          if(todo.index===action.index){
+            return Object.assign({},todo,{completed:!todo.completed})
+          }
+          return todo
+        })}
     case TOGGLE_ALL:
       //return Object.assign({},{list:[...state.list]},{list:[{completed:action.checked}]})
      return {
@@ -38,11 +44,11 @@ export default function reducer(state={list:[],visibilityFilter:visibilityFilter
       console.log(action);
       return Object.assign({},state,{test:action.text})
       //{test:action.text,list:[...state.list]}
-    case SET_VISIBILITY_FILTER:
+    /*case SET_VISIBILITY_FILTER:
       console.log(action);
       return Object.assign({},state,{visibilityFilter:action.filter})
 
-
+*/
     default:
       return state
   }

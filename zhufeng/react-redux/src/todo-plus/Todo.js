@@ -1,18 +1,20 @@
 /*
 * 增加删除线功能23456
 * */
+import PropTypes from 'prop-types'
 import React from 'react'
 import store from './store'
+import {connect} from 'react-redux'
+import FilterLink from './containers/FilterLink'
 import {
   addTodo,
   deleteTodo,
   toggleTodo,
   toggleAll,
   setVisibilityFilter,
-  visibilityFilter, TOGGLE_TODO
+  visibilityFilter,
 } from './actions'
-import {connect} from 'react-redux'
-let {SHOW_ALL,SHOW_COMPLETED,SHOW_ACTIVE} = visibilityFilter
+let {SHOW_ALL,SHOW_COMPLETED,SHOW_ACTIVE} = visibilityFilter;
 
 
 export default class Todo extends React.Component{
@@ -62,16 +64,6 @@ export default class Todo extends React.Component{
     this.setState({list})
   }*/
   render(){
-    let filterList = this.state.list.filter(todo=>{
-      switch (this.state.visibilityFilter) {
-        case SHOW_COMPLETED:
-          return todo.completed;
-        case SHOW_ACTIVE:
-          return !todo.completed
-        default:
-          return true
-      }
-    })
     let activeCount = this.state.list.reduce((count,todo)=>{
       return count+(todo.completed?0:1)
     },0)
@@ -95,16 +87,19 @@ export default class Todo extends React.Component{
             }
           </ul>*/}
           <VisibleTodoList/>
-          <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_ALL))}>全部</button>
-          <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_ACTIVE))}>未完成(6)</button>
-          <button onClick={()=>store.dispatch(setVisibilityFilter(visibilityFilter.SHOW_COMPLETED))}>已完成</button>
+
+          <div>
+            <FilterLink filter={SHOW_ALL}>全部</FilterLink>
+            <FilterLink filter={SHOW_ACTIVE}>未完成</FilterLink>
+            <FilterLink filter={SHOW_COMPLETED}>已完成</FilterLink>
+          </div>
         </div>
       )
   }
 }
 class TodoList extends React.Component{
   render() {
-    console.log(this.props);
+    console.log(this.props.list);
     return(
       <ul>
         {
@@ -120,6 +115,14 @@ class TodoList extends React.Component{
       </ul>
     )
   }
+}
+TodoList.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+  toggleTodo: PropTypes.func.isRequired
 }
 function getVisibleTodos(list,filter) {
   console.log(filter);
@@ -137,7 +140,7 @@ function getVisibleTodos(list,filter) {
 const mapStateToProps = state=>{//state的值是connect调用mapstateToProps方法传递回来的store.getState()
   console.log(state);
   return{
-    list:getVisibleTodos(state.todo.list,state.todo.visibilityFilter)
+    list:getVisibleTodos(state.todo.list,state.visibilityFilter)
   }
 }
 //把展示组件变化同步到redux的store中
