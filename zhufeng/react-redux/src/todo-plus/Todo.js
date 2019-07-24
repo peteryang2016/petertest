@@ -1,5 +1,5 @@
 /*
-* 增加删除线功能
+* 增加删除线功能23456
 * */
 import React from 'react'
 import store from './store'
