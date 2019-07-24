@@ -9,9 +9,7 @@ import {setVisibilityFilter} from "../actions";
 
 //将redux 中state映射到组件中的state
 let mapStateToProps=(state,ownProps)=>{
-    console.log(state.visibilityFilter);
-    console.log(ownProps.filter);
-    return{
+  return{
         active:ownProps.filter===state.visibilityFilter
     }
 }

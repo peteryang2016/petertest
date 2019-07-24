@@ -99,7 +99,7 @@ export default class Todo extends React.Component{
 }
 class TodoList extends React.Component{
   render() {
-    console.log(this.props.list);
+    if(this.props.list.length<=0) return <div>暂无数据</div>
     return(
       <ul>
         {
@@ -107,7 +107,7 @@ class TodoList extends React.Component{
             return (
               <li style={{"textDecoration":todo.completed?"line-through":'' }} key={index}>
                 <input type="checkbox" checked={todo.completed} onChange={()=>{this.props.toggleTodo(todo.index)}}/>{todo.text}------{todo.index}
-                <button onClick={()=>this.handleClick(index)}>删除</button>
+                <button onClick={()=>this.props.handleClick(index)}>删除</button>
               </li>
             )
           })
@@ -145,7 +145,7 @@ const mapStateToProps = state=>{//state的值是connect调用mapstateToProps方�
 }
 //把展示组件变化同步到redux的store中
 const mapDispatchToProps = dispatch=>({
-
-  toggleTodo: index => dispatch(toggleTodo(index))
+  toggleTodo: index => dispatch(toggleTodo(index)),
+  handleClick:index=>dispatch(deleteTodo(index))
 })
 let VisibleTodoList = connect(mapStateToProps,mapDispatchToProps)(TodoList)
