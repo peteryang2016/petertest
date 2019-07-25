@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import store from './store'
 import {connect} from 'react-redux'
+import VisibleTodoList from './containers/VisibleTodoList'
 import FilterLink from './containers/FilterLink'
 import {
   addTodo,
@@ -97,55 +98,5 @@ export default class Todo extends React.Component{
       )
   }
 }
-class TodoList extends React.Component{
-  render() {
-    if(this.props.list.length<=0) return <div>暂无数据</div>
-    return(
-      <ul>
-        {
-          this.props.list.map((todo,index)=>{
-            return (
-              <li style={{"textDecoration":todo.completed?"line-through":'' }} key={index}>
-                <input type="checkbox" checked={todo.completed} onChange={()=>{this.props.toggleTodo(todo.index)}}/>{todo.text}------{todo.index}
-                <button onClick={()=>this.props.handleClick(index)}>删除</button>
-              </li>
-            )
-          })
-        }
-      </ul>
-    )
-  }
-}
-TodoList.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    index: PropTypes.number.isRequired,
-    completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  toggleTodo: PropTypes.func.isRequired
-}
-function getVisibleTodos(list,filter) {
-  console.log(filter);
-  switch (filter) {
-    case SHOW_COMPLETED:
-      return list.filter(t=>t.completed)
-    case SHOW_ACTIVE:
-      return list.filter(t=>!t.completed)
-    default:
-      return list
-  }
 
-}
-//将store中的state映射给state
-const mapStateToProps = state=>{//state的值是connect调用mapstateToProps方法传递回来的store.getState()
-  console.log(state);
-  return{
-    list:getVisibleTodos(state.todo.list,state.visibilityFilter)
-  }
-}
-//把展示组件变化同步到redux的store中
-const mapDispatchToProps = dispatch=>({
-  toggleTodo: index => dispatch(toggleTodo(index)),
-  handleClick:index=>dispatch(deleteTodo(index))
-})
-let VisibleTodoList = connect(mapStateToProps,mapDispatchToProps)(TodoList)
+

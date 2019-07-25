@@ -12,13 +12,16 @@ export const visibilityFilter = {
   SHOW_ACTIVE:'SHOW_ACTIVE'
 
 }
+//添加todo
 let nextTodoId = 0
 export function addTodo(text){
   return {type:ADD_TODO,text,index:nextTodoId++,completed:false}
 }
+//删除todo
 export function deleteTodo(index){
   return {type:DELETE_TODO,index}
 }
+//todo是否完成切换
 export function toggleTodo(index){
   return {type:TOGGLE_TODO,index}
 }
