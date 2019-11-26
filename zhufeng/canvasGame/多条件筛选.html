@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+    const ProductFilters = {
+        //区间类型
+        rangesFilter:function (products,ranges) {
+            if(ranges.length===0) return products;
+            for(let range of ranges){
+                products = products.filter(product=>{
+                    return product.price>range.low && product.price<range.high
+                })
+            }
+            return products
+        },
+        //选择类型
+        choosesFilter:function (products,chooses) {
+            let tmpProducts = []
+            if(chooses.length===0){
+                tmpProducts = products
+                return false
+            }
+            for(let choose of chooses){
+                tmpProducts = tmpProducts.concat(products.filter(product=>{
+                    return product.brank===choose.value
+                }))
+            }
+            return tmpProducts
+        }
+    }
+
+    let Conditions= {
+        ranges:[
+            {
+                type:'price',
+                low:9000,//最低价格
+                high:10000//最高价格
+            }
+        ],
+        chooses:[
+            {
+                type:'brand',
+                value:'三星'
+            },
+            {
+                type:'brand',
+                value:'苹果'
+            },
+        ]
+    }
+
+    let products = [
+        {name:'手机',brank:'华为',price:1999},
+        {name:'手机2',brank:'苹果',price:3999},
+        {name:'手机3',brank:'三星',price:6999}
+    ]
+    function doFilter(products,conditions){
+        products = ProductFilters.rangesFilter(products,conditions.ranges)
+        products = ProductFilters.choosesFilter(products,conditions.chooses)
+        return products
+    }
+
+    let result = doFilter(products,Conditions)
+    console.log(result);
+
+</script>

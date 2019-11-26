@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+    let canvas = document.getElementById("canvas")
+    canvas.width=500;
+    canvas.height=500;
+
+    let ctx = canvas.getContext('2d')
+    ctx.fillStyle = 'red'
+    ctx.fillRect(0,0,500,500)
+
+    ctx.strokeStyle='yellow'
+    ctx.beginPath()
+    ctx.moveTo(10,10)
+    ctx.quadraticCurveTo(20,100,200,20);
+    ctx.stroke()
+
+
+</script>

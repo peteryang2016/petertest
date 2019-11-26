@@ -1,0 +1,78 @@
+//把类当作参数的泛型类
+
+// class User{
+//     userName:string| undefined;
+//     password:string |undefined;
+// }
+// class ArticleCate{
+//     title:string|undefined
+//     content:string|undefined;
+//     state:number|undefined
+
+// }
+// class MysqlDb{
+//     add(info:ArticleCate):boolean{
+//         console.log(info)
+//         return true
+//     }
+// }
+//把用户信息添加到数据库
+// let u = new User()
+// u.userName = 'peter'
+// u.password = '123456'
+// let m = new MysqlDb()
+// m.add({userName:'peter',password:'123456'})
+
+//把文章添加到数据库
+// let a = new ArticleCate()
+// a.content='内容';
+// a.state=0;;
+// a.title='标题';
+// let m = new MysqlDb()
+// m.add(a)
+
+
+//使用泛型改造=========
+class MysqlDb<T>{
+    add(info:T):boolean{
+        console.log(info)
+        return true
+    }
+}
+class User{
+    userName:string| undefined;
+    password:string |undefined;
+}
+class ArticleCate{
+    title:string|undefined;
+    content:string|undefined;
+    state:number|undefined;
+    constructor(params:{
+        title:string|undefined,
+        content:string|undefined,
+        state?:number|undefined
+    }){
+        this.title = params.title
+        this.content = params.content
+        this.state = params.state
+    }
+
+}
+//把用户信息添加到数据库
+let u = new User()
+//增加数据，也可以直接在coustructor中加入
+u.userName = 'peter'
+u.password = '123456'
+let m = new MysqlDb<User>()
+m.add(u)
+
+//把文章添加到数据库
+let a = new ArticleCate({
+    content:'内容',
+    state:0,
+    title:'标题'
+
+})
+
+let m1 = new MysqlDb<ArticleCate>()
+m1.add(a)

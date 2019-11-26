@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .myCheck{
+            margin-bottom: 10px;
+        }
+        .label{
+            display: flex;
+            align-items: center;
+            height: 40px;
+            background: red;
+        }
+        .check-core{
+            background:#d9d9d9;
+            width:30px;
+            height: 30px;
+            display:inline-block;
+            border-radius: 50%;
+            position: relative;
+            border:1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .check-core:after{
+            box-sizing: border-box;
+            position: absolute;
+            /*left:23px;
+            top:10px;*/
+            left:50%;
+            top:50%;
+            content: '';
+            border: 3px solid transparent;
+            width: 9px;
+            height: 16px;
+            border-top:none;
+            border-left:none;
+            transform:translate(-35%,-65%)  rotate(45deg) ;
+        }
+
+        .checkbox input[type='checkbox']:checked+.check-core{
+            background: #26a2ff;
+            border:1px solid #26a2ff;
+        }
+        .checkbox input[type='checkbox']:checked+.check-core::after{
+            border:3px solid #ffffff;
+            border-top: none;
+            border-left:none;
+            
+        }
+        .checkbox input{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+        <div class="myCheck">
+                <label class="label">
+                    <span class="checkbox">
+                        <input type="checkbox" checked>
+                        <span class="check-core"></span>
+                    </span>
+                    <span>选项1</span>
+                </label>
+        </div>
+    
+</body>
+</html>
