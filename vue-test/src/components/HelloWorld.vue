@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <div @click="change">跳转到B</div>
     <mt-actionsheet
       :actions="actions"
       v-model="sheetVisible">
@@ -165,6 +166,9 @@
     });
   },
     methods:{
+      change(){
+        window.location.href = 'http://localhost:8082/#/TestB'
+      },
       onValuesChange(picker, values) {
         if (values[0] > values[1]) {
           picker.setSlotValue(1, values[0]);
