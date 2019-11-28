@@ -1,0 +1,58 @@
+.MycourseBox{
+  padding:.2rem;
+
+  .courseItem{
+    padding-top: .2rem;
+    li{
+      position: relative;
+      box-sizing: border-box;
+      margin-bottom: .2rem;
+      border-bottom:.02rem solid #eee;
+      padding:.1rem;
+
+      input[type='checkbox']{
+        position: absolute;
+        left: .1rem;
+        top:.25rem;
+      }
+
+      a{
+        display: block;
+        color:#000;
+
+        h3{
+          margin-left: .4rem;
+          line-height: .6rem;
+          font-size: .34rem;
+        }
+        .content{
+          display: flex;
+          .pic{
+            width:2rem;
+            height: 1.4rem;
+            background: #eee;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+
+            .desc{
+              flex: 1;
+              font-size: .32rem;
+              padding-left: .2rem;
+              overflow: hidden;
+              p:first-child{
+                color:#666
+              }
+              p:last-child{
+                color:#999;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+}

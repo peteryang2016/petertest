@@ -1,0 +1,111 @@
+.courseBox{
+
+  //轮播图和列表
+  .ListBox{
+
+    //轮播图
+    .ant-carousel .slick-slide {
+      text-align: center;
+      height: 3rem;
+      line-height: 3rem;
+      background: #364d79;
+      overflow: hidden;
+
+      img{
+        display: block;
+        width: 100%;
+        height: 3rem;
+      }
+    }
+    .slick-active{
+      button{
+        background: #9d0800 !important;
+      }
+    }
+
+  }
+  .courseList{
+    padding:.2rem;
+    h2{
+      line-height: .7rem;
+      i{
+        margin-right:.1rem;
+        font-size: .5rem;
+      }
+    }
+    ul{
+      li{
+        box-sizing: border-box;
+        margin-bottom: .2rem;
+        border:.02rem solid #DDD;
+        padding:.1rem;
+
+        a{
+          display: block;
+          color:#000;
+
+          h3{
+            line-height: .6rem;
+            font-size: .34rem;
+          }
+          .content{
+            display: flex;
+            .pic{
+              width:2rem;
+              height: 1.4rem;
+              background: #eee;
+              img{
+                width: 100%;
+                height: 100%;
+              }
+
+              .desc{
+                flex: 1;
+                font-size: .32rem;
+                padding-left: .2rem;
+                overflow: hidden;
+                p:first-child{
+                  color:#666
+                }
+                p:last-child{
+                  color:#999;
+                }
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  /*详情区域*/
+  .baseInfo{
+    padding:.2rem;
+
+    video{
+      display: block;
+      width:100%;
+      background: #000;
+    }
+
+    .content{
+      margin-top:.2rem;
+
+      h3{
+        line-height: .6rem;
+      }
+      p{
+        line-height: .4rem;
+      }
+      span{
+        line-height: .6rem;
+      }
+
+      button{
+        display: block;
+        margin-top: .2rem;
+      }
+    }
+  }
+}

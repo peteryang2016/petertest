@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+    demo嵌套新闻详情页
+    <iframe src="" frameborder="0"></iframe>
+    <script>
+        $.ajaxPrefilter( function (options) {
+            if (options.crossDomain && jQuery.support.cors) {
+                var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+                options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+            }
+        });
+        var link = "http://mp.weixin.qq.com/s?__biz=MzU1MDk1MDAwMg==&mid=100001509&idx=1&sn=1e3cf7a4a893fb0626debdf3240dee25&chksm=7b9983f84cee0aee5cf80fb37c4934fbbe5fc4ca4518e24eb7dde0083b4ae5212afacacb1e2a#rd";
+        $.get(
+            link,
+            function (response) {
+            var html = response;
+            html=html.replace(/data-src/g, "src");
+            var html_src = 'data:text/html;charset=utf-8,' + html; //解析码解决乱码
+            $("iframe").attr("src" , html_src);
+        });
+    </script>
+</body>
+</html>
